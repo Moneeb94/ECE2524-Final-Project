@@ -18,6 +18,7 @@ win.nodelay(1)
 
 #Initialize the snake to move left when the game first starts
 key = KEY_LEFT
+score = 0
 
 #Intitial starting position of the snake
 snake = [[5,10], [5,9], [5,8]]
