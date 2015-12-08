@@ -5,7 +5,7 @@
 
 import curses
 import random
-from curses import KEY_LEFT, KEY_DOWN, KEY_UP, KEY_RIGHT
+from curses import KEY_LEFT, KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_ENTER
 from random import randint
 
 curses.initscr()
@@ -17,7 +17,7 @@ win.border(0)
 win.nodelay(1)
 
 #Initialize the snake to move left when the game first starts
-key = KEY_LEFT
+key = KEY_RIGHT
 score = 0
 
 #Intitial starting position of the snake
@@ -29,7 +29,7 @@ food = [10,20]
 #add food to the screen
 win.addch(food[0], food[1], '*')
 
-while key != 27:
+while key != 10:
   win.border(0)
   
   #Prints the score while you are playing the game
@@ -55,7 +55,7 @@ while key != 27:
     key = oldKey
     continue
 #check to see if a key other than the arrow keys is pressed
-  if key not in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, 27]:
+  if key not in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, 27, 10]:
   #if invalid key is pressed, the direction is the same as the previous direction
     key = oldKey
 
@@ -63,7 +63,7 @@ while key != 27:
   snake.insert(0, [snake[0][0] + (key == KEY_UP and -1) + (key == KEY_DOWN and 1), snake[0][1] + (key == KEY_RIGHT and 1) + (key == KEY_LEFT and -1)])
 
 #checks ot see if the snake runs into the wall. If it does, then the game is over
-  if snake[0][1] == 0 or snake[0][1] == 69 orsnake[0][0] == 0 or snake[0][0] == 19:
+  if snake[0][1] == 0 or snake[0][1] == 69 or snake[0][0] == 0 or snake[0][0] == 19:
     break
   
 
@@ -81,6 +81,10 @@ while key != 27:
       if food in snake: 
         food = []
     win.addch(food[0], food[1], '*')
+    
+  else:
+    last = snake.pop()
+    win.addch(last[0], last[1], ' ')
     
   win.addch(snake[0][0], snake[0][1], 'O')
 
