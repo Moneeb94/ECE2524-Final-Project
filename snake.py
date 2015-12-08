@@ -1,15 +1,15 @@
-#Snake game
+# Snake game -- Created By Moneeb Waseem
 # To play the snake game, use the arrow keys to move
 # If you run into the wall or a part of the snakes 
 # body, the game is over
 
 import curses
 import random
-from curses import KEY_LEFT, KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_ENTER
+from curses import KEY_LEFT, KEY_DOWN, KEY_UP, KEY_RIGHT, KEY_ENTER 
 from random import randint
 
 curses.initscr()
-win = curses.newwin(20, 70, 0, 0) 
+win = curses.newwin(20, 70, 0, 0)  #creates game window (70x20)
 win.keypad(1)
 curses.noecho()
 curses.curs_set(0)
@@ -29,6 +29,8 @@ food = [10,20]
 #add food to the screen
 win.addch(food[0], food[1], '*')
 
+#while the user has not hit enter
+#if the user hits enter, the game is over
 while key != 10:
   win.border(0)
   
@@ -55,7 +57,7 @@ while key != 10:
     key = oldKey
     continue
 #check to see if a key other than the arrow keys is pressed
-  if key not in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, 27, 10]:
+  if key not in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, 10]:
   #if invalid key is pressed, the direction is the same as the previous direction
     key = oldKey
 
@@ -74,23 +76,23 @@ while key != 10:
 #checks to see if the snake eats the food and updates the score
   if snake[0] == food:
     food = []
-    score += 1
+    score += 1 #update score
     while food == []:
       food = [randint(1,18), randint(1, 68)] #calculate random coordintae for food
     
       if food in snake: 
         food = []
-    win.addch(food[0], food[1], '*')
+    win.addch(food[0], food[1], '*') #add another food
     
   else:
     last = snake.pop()
-    win.addch(last[0], last[1], ' ')
+    win.addch(last[0], last[1], ' ') #get rid of trailing tail
     
-  win.addch(snake[0][0], snake[0][1], 'O')
+  win.addch(snake[0][0], snake[0][1], 'O') #adds segment to the snake
 
-curses.endwin()
+curses.endwin() #close the window and show the game over display
 print("GAME OVER")
-print("\nSCORE = " + str(score))
+print("\nSCORE = " + str(score)) #shows score
 
     
     
